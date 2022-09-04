@@ -1,0 +1,63 @@
+<?php
+
+class user
+{
+    private $id;
+    private $nome;
+    private $email;
+    private $telefone;
+
+
+    public function __construct()
+    {
+    }
+
+    public function setId($id)
+    {
+        if ($id >= 0) {
+            $this->id = $id;
+        }
+    }
+
+    public function getid()
+    {
+        return $this->id;
+    }
+
+    public function setNome($nome)
+    {
+        if (strlen($nome) > 1) {
+            $this->nome = $nome;
+        }
+    }
+
+    public function getNome()
+    {
+        return $this->nome;
+    }
+
+    public function __toString()
+    {
+        return "[Marca] Código: " . $this->id . " | " .
+            "Descrição: " . $this->nome;
+    }
+    public function getTelefone()
+    {
+        return $this->telefone;
+    }
+    public function setTelefone($telefone)
+    {
+        $this->telefone = $telefone;
+        return $this;
+    }
+
+    public function getEmail()
+    {
+        return $this->email;
+    }
+    public function setEmail($email)
+    {
+        $this->email = $email;
+        return $this;
+    }
+}
