@@ -14,9 +14,12 @@ class AgendaController extends Controller
      */
     public function index()
     {
-        session_start();
-        echo var_dump($_SESSION['users']);
 
+        if (!isset($_SESSION))
+            session_start();
+        $element = $_SESSION['usuario'];
+        
+       return view("agenda.index", compact("element"));
         /*
         echo '<pre>';
         print_r($_SESSION['users']);
@@ -48,7 +51,7 @@ class AgendaController extends Controller
      */
     public function create()
     {
-        echo view("agenda.create");
+        return view("agenda.create");
     }
 
     /**
@@ -59,18 +62,24 @@ class AgendaController extends Controller
      */
     public function store(Request $request)
     {
-        session_start();
+        if (!isset($_SESSION))
+            session_start();
 
-        $usuario = array(
+        $novoUsuario = array(
             'id' => 1,
             'name' => $request->input('name'),
             'telefone' => $request->input('telefone'),
             'email' => $request->input('email')
         );
 
-        $_SESSION['users'] = $usuario;
 
-        echo view("agenda.index");
+        if (isset($_SESSION['usuario']))
+            array_push($_SESSION['usuario'], $novoUsuario);
+        else
+            $_SESSION['usuario'][0] = $novoUsuario;
+
+        $element =  $_SESSION['usuario'];
+        return redirect()->route("agenda.index", ['element' => $element]);
     }
 
     /**
@@ -83,18 +92,20 @@ class AgendaController extends Controller
     {
         session_start();
 
-        $agenda = $_SESSION['users'];
+        $usuario = $_SESSION['usuario'];
 
-        if (array_search($id, $agenda)) {
-            foreach ($agenda  as $element) {
-                if ($agenda['id'] == $id) {
+        if (!isset($_SESSION))
+            session_start();
 
-                    return view('agenda.edit', compact('agenda'));
-                }
+
+
+        foreach ($usuario  as $element) {
+            if ($element['id'] == $id) {
+                return view('agenda.show', ['element' => $element]);
+                break;
             }
-        } else {
-            echo "Id não existe!";
         }
+
 
 
         //echo view("agenda.show");
@@ -109,19 +120,18 @@ class AgendaController extends Controller
      */
     public function edit($id)
     {
-        session_start();
 
-        $agenda = $_SESSION['users'];
+        if (!isset($_SESSION))
+            session_start();
 
-        if (array_search($id, $agenda)) {
-            foreach ($agenda  as $element) {
-                if ($agenda['id'] == $id) {
+        $usuario = $_SESSION['usuario'];
 
-                    return view('edit.show', compact('agenda'));
-                }
+        foreach ($usuario  as $element) {
+            if ($element['id'] == $id) {
+
+                return view('agenda.edit', ['element'=>  $element]);
+                break;
             }
-        } else {
-            echo "Id não existe!";
         }
     }
 
@@ -134,18 +144,23 @@ class AgendaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        session_start();
+      
 
-        $usuario = array(
-            'id' => 1,
-            'name' => $request->input('name'),
-            'telefone' => $request->input('telefone'),
-            'email' => $request->input('email')
-        );
+        if(!isset($_SESSION))
+            session_start();    
 
-        $_SESSION['users'] = $usuario;
+        $keys = array_keys($_SESSION['usuario']);
 
-       return redirect('agenda');
+        foreach($keys as $key){
+            if($_SESSION['usuario']['id'] == $id){
+                $_SESSION['usuario'][$key]['nome'] = $request->nome;
+                $_SESSION['usuario'][$key]['telefone'] = $request->telefone;
+                $_SESSION['usuario'][$key]['email'] = $request->email;
+            }
+        }   
+    
+
+        return redirect()-> route('agenda.index');
     }
 
     /**

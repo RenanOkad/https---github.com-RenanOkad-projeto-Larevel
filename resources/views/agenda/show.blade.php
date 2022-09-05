@@ -8,8 +8,8 @@
 </head>
 <body>
 
-    @foreach($agenda as $element )
-        {{$element}}<br>
+    @foreach($element as $user )
+        {{$user}}<br>
     @endforeach
 
 </body>

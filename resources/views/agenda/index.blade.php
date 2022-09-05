@@ -8,9 +8,13 @@
 </head>
 <body>
 
-    @foreach($agenda as $element )
-        {{$element}}<br>
-    @endforeach
+
+    <?php  foreach ($element as $key) {
+            
+                echo "<pre>";
+                var_export($key);
+                echo "</pre>";
+        }?>
 
 </body>
 </html>
