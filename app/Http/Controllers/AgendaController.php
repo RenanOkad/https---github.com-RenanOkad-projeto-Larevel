@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\AgendaResource;
 use Illuminate\Http\Request;
 
 class AgendaController extends Controller
@@ -13,7 +14,31 @@ class AgendaController extends Controller
      */
     public function index()
     {
-        echo "Home";
+        session_start();
+        echo var_dump($_SESSION['users']);
+
+        /*
+        echo '<pre>';
+        print_r($_SESSION['users']);
+        echo '</pre>';
+
+        echo "<pre>";
+        var_dump($_SESSION['users']);
+        echo "</pre>";
+
+        echo "<pre>";
+        var_export($_SESSION['users']);
+        echo "</pre>";
+
+
+        foreach ($_SESSION['users'] as $element) {
+            if ($_SESSION['users']['id'] == 1) {
+                echo "<pre>";
+                var_export($element);
+                echo "</pre>";
+            }
+        }
+        */
     }
 
     /**
@@ -34,17 +59,16 @@ class AgendaController extends Controller
      */
     public function store(Request $request)
     {
+        session_start();
 
-        
         $usuario = array(
-            'id' => $request->input(rand()),
+            'id' => 1,
             'name' => $request->input('name'),
             'telefone' => $request->input('telefone'),
             'email' => $request->input('email')
         );
 
-        $_SESSION['users'] = array();
-        array_push($_SESSION['users'],$usuario);
+        $_SESSION['users'] = $usuario;
 
         echo view("agenda.index");
     }
@@ -55,13 +79,26 @@ class AgendaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id){
-        
-        foreach ($_SESSION['users'] as $key => $value) {
-            print $key . '<br>';
-            print $value;
-          }
-       // echo var_dump($_SESSION['usuario'][]);
+    public function show($id)
+    {
+        session_start();
+
+        $agenda = $_SESSION['users'];
+
+        if (array_search($id, $agenda)) {
+            foreach ($agenda  as $element) {
+                if ($agenda['id'] == $id) {
+
+                    return view('agenda.edit', compact('agenda'));
+                }
+            }
+        } else {
+            echo "Id não existe!";
+        }
+
+
+        //echo view("agenda.show");
+        // echo var_dump($_SESSION['usuario'][]);
     }
 
     /**
@@ -72,7 +109,20 @@ class AgendaController extends Controller
      */
     public function edit($id)
     {
-        echo "Editado";
+        session_start();
+
+        $agenda = $_SESSION['users'];
+
+        if (array_search($id, $agenda)) {
+            foreach ($agenda  as $element) {
+                if ($agenda['id'] == $id) {
+
+                    return view('edit.show', compact('agenda'));
+                }
+            }
+        } else {
+            echo "Id não existe!";
+        }
     }
 
     /**
@@ -84,7 +134,18 @@ class AgendaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        echo "Atualizado";
+        session_start();
+
+        $usuario = array(
+            'id' => 1,
+            'name' => $request->input('name'),
+            'telefone' => $request->input('telefone'),
+            'email' => $request->input('email')
+        );
+
+        $_SESSION['users'] = $usuario;
+
+       return redirect('agenda');
     }
 
     /**
