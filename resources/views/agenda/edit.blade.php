@@ -1,4 +1,4 @@
-@extends('agenda.layout')
+<!-- @extends('agenda.layout')
 
 @section('titulo','Editar Usuários')
 
@@ -17,4 +17,6 @@
         <input type="submit" value="Enviar">
     </form>
 @endsection
+ -->
 
+ @include('agenda.form')

@@ -1,4 +1,4 @@
-@extends('agenda.layout')
+<!-- @extends('agenda.layout')
 
 @section('titulo','Inserir Usuários')
 
@@ -14,4 +14,6 @@
         <input type="text" name="email" id="email"><br>
         <input type="submit" value="Enviar">
     </form>
-@endsection
+@endsection -->
+
+@include('agenda.form')
