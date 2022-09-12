@@ -18,8 +18,8 @@ class AgendaController extends Controller
         if (!isset($_SESSION))
             session_start();
         $element = $_SESSION['usuario'];
-        
-       return view("agenda.index", compact("element"));
+
+        return view("agenda.index", compact("element"));
         /*
         echo '<pre>';
         print_r($_SESSION['users']);
@@ -66,7 +66,7 @@ class AgendaController extends Controller
             session_start();
 
         $novoUsuario = array(
-            'id' => 1,
+            'id' => rand(),
             'name' => $request->input('name'),
             'telefone' => $request->input('telefone'),
             'email' => $request->input('email')
@@ -129,7 +129,7 @@ class AgendaController extends Controller
         foreach ($usuario  as $element) {
             if ($element['id'] == $id) {
 
-                return view('agenda.edit', ['element'=>  $element]);
+                return view('agenda.edit', ['element' =>  $element]);
                 break;
             }
         }
@@ -144,23 +144,23 @@ class AgendaController extends Controller
      */
     public function update(Request $request, $id)
     {
-      
 
-        if(!isset($_SESSION))
-            session_start();    
+
+        if (!isset($_SESSION))
+            session_start();
 
         $keys = array_keys($_SESSION['usuario']);
 
-        foreach($keys as $key){
-            if($_SESSION['usuario']['id'] == $id){
-                $_SESSION['usuario'][$key]['nome'] = $request->nome;
+        foreach ($keys as $key) {
+            if ($_SESSION['usuario'][$key]['id'] == $id) {
+                $_SESSION['usuario'][$key]['name'] = $request->name;
                 $_SESSION['usuario'][$key]['telefone'] = $request->telefone;
                 $_SESSION['usuario'][$key]['email'] = $request->email;
             }
-        }   
-    
+        }
 
-        return redirect()-> route('agenda.index');
+
+        return redirect()->route('agenda.index');
     }
 
     /**
@@ -171,6 +171,17 @@ class AgendaController extends Controller
      */
     public function destroy($id)
     {
-        echo "Destruido";
+        if (!isset($_SESSION))
+            session_start();
+
+        $keys = $_SESSION['usuario'];
+
+        foreach ($keys as $key => $registro) {
+            if ($registro['id'] == $id) {
+                unset($_SESSION['usuario'][$key]);
+            }
+        }
+
+        return redirect()->route('agenda.index');
     }
 }

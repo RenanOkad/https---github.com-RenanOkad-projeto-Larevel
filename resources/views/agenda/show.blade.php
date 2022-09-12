@@ -1,16 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
+@extends('agenda.layout')
 
-    @foreach($element as $user )
-        {{$user}}<br>
-    @endforeach
+@section('titulo', 'Detalhes do Usuário')
 
-</body>
-</html>
+@section('conteudo')
+    <label for="id">ID</label>
+    <input type="text" name="id" id="id" value="{{$element['id']}}" disabled><br>
+    <label for="name">Nome</label>
+    <input type="text" name="name" id="name" value="{{$element['name']}}" disabled><br>
+    <label for="telefone">Telefone</label>
+    <input type="text" name="telefone" id="telefone" value="{{$element['telefone']}}" disabled><br>
+    <label for="email">Email</label>
+    <input type="text" name="email" id="email" value="{{$element['email']}}" disabled><br>
+    <input type="submit" value="Enviar">
+    <a href="{{route('agenda.edit', $element['id'])}}"><button>Editar</button></a>
+@endsection

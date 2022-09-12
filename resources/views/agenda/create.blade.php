@@ -1,25 +1,17 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
+@extends('agenda.layout')
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agenda Cadastro</title>
-</head>
+@section('titulo','Inserir Usuários')
 
-<body>
-    <form action="{{route('agenda.store')}}" method="post">
+@section('conteudo')
+    <form action="{{ route('agenda.store') }}" method="post">
         @method("POST")
+        @csrf
         <label for="name">Nome</label>
         <input type="text" name="name" id="name"><br>
         <label for="telefone">Telefone</label>
         <input type="text" name="telefone" id="telefone"><br>
         <label for="email">E-mail</label>
         <input type="text" name="email" id="email"><br>
-        <input type="submit" value="Enviar"><br>
-
+        <input type="submit" value="Enviar">
     </form>
-</body>
-
-</html>
+@endsection
