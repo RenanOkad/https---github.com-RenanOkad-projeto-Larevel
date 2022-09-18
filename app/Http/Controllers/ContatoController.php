@@ -6,7 +6,6 @@ use App\Models\Contato;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Redirect;
-use Input;
 
 
 class ContatoController extends Controller
@@ -20,7 +19,7 @@ class ContatoController extends Controller
     {
         $contato = Contato::all();
 
-        return view('contato.index') -> with('contato',$contato);
+        return view('contato.index')->with('contato', $contato);
     }
 
     /**
@@ -81,7 +80,7 @@ class ContatoController extends Controller
         $contato = Contato::find($id);
 
         // show the view and pass the shark to it
-        return view('contato.show') -> with('contato',$contato);
+        return view('contato.show')->with('contato', $contato);
     }
 
     /**
@@ -90,9 +89,13 @@ class ContatoController extends Controller
      * @param  \App\Models\Contato  $contato
      * @return \Illuminate\Http\Response
      */
-    public function edit(Contato $contato)
+    public function edit($id)
     {
-        //
+        // get the shark
+        $contato = Contato::find($id);
+
+        // show the view and pass the shark to it
+        return view('contato.edit')->with('contato', $contato);
     }
 
     /**
@@ -102,9 +105,34 @@ class ContatoController extends Controller
      * @param  \App\Models\Contato  $contato
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Contato $contato)
+    public function update(Request $request, $id)
     {
-        //
+        // validate
+        // read more on validation at http://laravel.com/docs/validation
+        $rules = array(
+            'nome'       => 'required',
+            'email'      => 'required|email',
+            'telefone' => 'required'
+        );
+        $validator = Validator::make($request->all(), $rules);
+
+        // process the login
+        if ($validator->fails()) {
+            return Redirect::to('contato/' . $id . '/edit')
+                ->withErrors($validator)
+                ->withInput($request->except('password'));
+        } else {
+            // store
+            $contato = contato::find($id);
+            $contato->nome       = $request->get('nome');
+            $contato->email      = $request->get('email');
+            $contato->telefone = $request->get('telefone');
+            $contato->update();
+
+            // redirect
+            session()->flash('message', 'Contato criado com sucesso!');
+            return Redirect::to('contato');
+        }
     }
 
     /**
@@ -113,8 +141,13 @@ class ContatoController extends Controller
      * @param  \App\Models\Contato  $contato
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Contato $contato)
+    public function destroy($id)
     {
-        //
+         // delete
+         $contato = contato::find($id);
+         $contato->delete();
+         // redirect
+         session()->flash('message', 'Contato deletado com sucesso!');
+         return Redirect::to('contato');
     }
 }
