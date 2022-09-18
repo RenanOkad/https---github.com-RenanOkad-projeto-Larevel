@@ -19,26 +19,26 @@
             </ul>
         </nav>
 
-        <h1>Criar um contato</h1>
-        
-        {{ Form:: open(array('url' => 'contato')) }}
+        <h1>Editar {{ $contato->nome }}</h1>
+
+        {{ Form::model($contato, array('route' => array('contato.update', $contato->id), 'method' => 'PUT')) }}
 
         <div class="form-group">
-            {{ Form:: label('nome', 'Nome') }}
-            {{ Form:: text('nome', Input::old('nome'), array('class' => 'form-control')) }}
+            {{ Form::label('nome', 'Nome') }}
+            {{ Form::text('nome', null, array('class' => 'form-control')) }}
         </div>
 
         <div class="form-group">
-            {{ Form:: label('email', 'Email') }}
-            {{ Form:: email('email', Input::old('email'), array('class' => 'form-control')) }}
+            {{ Form::label('email', 'Email') }}
+            {{ Form::email('email', null, array('class' => 'form-control')) }}
         </div>
 
         <div class="form-group">
-            {{ Form:: label('telefone', 'telefone') }}
-            {{ Form:: text('telefone', Input::old('telefone'), array('class' => 'form-control'))}}
+            {{ Form::label('telefone', 'Telefone') }}
+            {{ Form::text('telefone', null, array('class' => 'form-control')) }}
         </div>
 
-        {{ Form::submit('Criar um contato!', array('class' => 'btn btn-primary')) }}
+        {{ Form::submit('Editar o contato!', array('class' => 'btn btn-primary')) }}
 
         {{ Form::close() }}
 
