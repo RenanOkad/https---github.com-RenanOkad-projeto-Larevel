@@ -5,6 +5,7 @@ use App\Http\Controllers\HojeController;
 use App\Http\Controllers\PiramideController;
 use App\Http\Controllers\ConeController;
 use App\Http\Controllers\AgendaController;
+use App\Http\Controllers\ContatoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -71,3 +72,5 @@ Route::get('/piramide/{altura}/{ab}/{tipoTinta}', [PiramideController::class, 'c
 Route::get('/cone/{altura}/{raio}/{tipoTinta}', [ConeController::class, 'calcular'])-> where("altura", "[+-]?([0-9]+([.][0-9]*)?|[.][0-9]+)") -> where("ab", "[+-]?([0-9]+([.][0-9]*)?|[.][0-9]+)")-> where("tipoTinta", "[0-9]+");
 
 Route::resource('/agenda', AgendaController::class);
+
+Route::resource('/contato', ContatoController::class);
