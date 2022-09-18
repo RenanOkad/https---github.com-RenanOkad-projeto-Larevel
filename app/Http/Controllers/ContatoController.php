@@ -81,7 +81,7 @@ class ContatoController extends Controller
         $contato = Contato::find($id);
 
         // show the view and pass the shark to it
-        return view('contato.index') -> with('contato',$contato);
+        return view('contato.show') -> with('contato',$contato);
     }
 
     /**
