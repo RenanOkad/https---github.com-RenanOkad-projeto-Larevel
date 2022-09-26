@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Contato;
+use App\Models\estado;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Redirect;
 
 
-class ContatoController extends Controller
+class EstadoController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,9 +17,9 @@ class ContatoController extends Controller
      */
     public function index()
     {
-        $contato = Contato::all();
+        $estado = Estado::all();
 
-        return view('contato.index')->with('contato', $contato);
+        return view('estado.index')->with('estado', $estado);
     }
 
     /**
@@ -29,7 +29,7 @@ class ContatoController extends Controller
      */
     public function create()
     {
-        return view('contato.create');
+        return view('estado.create');
     }
 
     /**
@@ -44,65 +44,61 @@ class ContatoController extends Controller
         // read more on validation at http://laravel.com/docs/validation
         $rules = array(
             'nome'       => 'required',
-            'email'      => 'required|email',
-            'telefone' => 'required'
         );
         $validator = Validator::make($request->all(), $rules);
 
         // process the login
         if ($validator->fails()) {
-            return Redirect::to('contato/create')
+            return Redirect::to('estado/create')
                 ->withErrors($validator)
                 ->withInput($request->except('password'));
         } else {
             // store
-            $contato = new contato;
-            $contato->nome       = $request->get('nome');
-            $contato->email      = $request->get('email');
-            $contato->telefone = $request->get('telefone');
-            $contato->save();
+            $estado = new Estado;
+            $estado->nome       = $request->get('nome');
+            $estado->save();
 
             // redirect
-            session()->flash('message', 'Contato criado com sucesso!');
-            return Redirect::to('contato');
+            session()->flash('message', 'Estado criado com sucesso!');
+            return Redirect::to('estado');
         }
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Contato  $contato
+     * @param  \App\Models\Estado
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        // get the contato
-        $contato = Contato::find($id);
+        // get the Estado
+        $estado = Estado::find($id);
 
-        // show the view and pass the contato to it
-        return view('contato.show')->with('contato', $contato);
+        // show the view and pass the estado to it
+        return view('estado.show')->with('estado', $estado);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Contato  $contato
+     * @param  \App\Models\Estado
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        // get the contato
-        $contato = Contato::find($id);
+        // get the estado
+        $estado = Estado::find($id);
 
-        // show the view and pass the contato to it
-        return view('contato.edit')->with('contato', $contato);
+        // show the view and pass the estado to it
+        return view('estado.edit')->with('estado', $estado);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Contato  $contato
+     * @param  \App\Models\Estado
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -110,44 +106,40 @@ class ContatoController extends Controller
         // validate
         // read more on validation at http://laravel.com/docs/validation
         $rules = array(
-            'nome'       => 'required',
-            'email'      => 'required|email',
-            'telefone' => 'required'
+            'nome'       => 'required'
         );
         $validator = Validator::make($request->all(), $rules);
 
         // process the login
         if ($validator->fails()) {
-            return Redirect::to('contato/' . $id . '/edit')
+            return Redirect::to('estado/' . $id . '/edit')
                 ->withErrors($validator)
                 ->withInput($request->except('password'));
         } else {
             // store
-            $contato = contato::find($id);
-            $contato->nome       = $request->get('nome');
-            $contato->email      = $request->get('email');
-            $contato->telefone = $request->get('telefone');
-            $contato->update();
+            $estado = Estado::find($id);
+            $estado->nome       = $request->get('nome');
+            $estado->update();
 
             // redirect
-            session()->flash('message', 'Contato editado com sucesso!');
-            return Redirect::to('contato');
+            session()->flash('message', 'Estado editado com sucesso!');
+            return Redirect::to('estado');
         }
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Contato  $contato
+     * @param  \App\Models\estado
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-         // delete
-         $contato = contato::find($id);
-         $contato->delete();
-         // redirect
-         session()->flash('message', 'Contato deletado com sucesso!');
-         return Redirect::to('contato');
+        // delete
+        $estado = Estado::find($id);
+        $estado->delete();
+        // redirect
+        session()->flash('message', 'Estado deletado com sucesso!');
+        return Redirect::to('estado');
     }
 }

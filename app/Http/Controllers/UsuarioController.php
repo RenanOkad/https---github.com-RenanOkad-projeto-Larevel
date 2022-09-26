@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Contato;
+use App\Models\Usuario;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Redirect;
 
 
-class ContatoController extends Controller
+class UsuarioController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,9 +17,9 @@ class ContatoController extends Controller
      */
     public function index()
     {
-        $contato = Contato::all();
+        $usuario = Usuario::all();
 
-        return view('contato.index')->with('contato', $contato);
+        return view('usuario.index')->with('usuario', $usuario);
     }
 
     /**
@@ -29,7 +29,7 @@ class ContatoController extends Controller
      */
     public function create()
     {
-        return view('contato.create');
+        return view('usuario.create');
     }
 
     /**
@@ -45,64 +45,70 @@ class ContatoController extends Controller
         $rules = array(
             'nome'       => 'required',
             'email'      => 'required|email',
-            'telefone' => 'required'
+            'senha' => 'required',
+            'cpf' => 'required',
+            'nivel' => 'required',
+            'informacao' => 'required'
         );
         $validator = Validator::make($request->all(), $rules);
 
         // process the login
         if ($validator->fails()) {
-            return Redirect::to('contato/create')
+            return Redirect::to('usuario/create')
                 ->withErrors($validator)
                 ->withInput($request->except('password'));
         } else {
             // store
-            $contato = new contato;
-            $contato->nome       = $request->get('nome');
-            $contato->email      = $request->get('email');
-            $contato->telefone = $request->get('telefone');
-            $contato->save();
+            $usuario = new Usuario;
+            $usuario->nome       = $request->get('nome');
+            $usuario->email      = $request->get('email');
+            $usuario->senha = $request->get('senha');
+            $usuario->cpf = $request->get('cpf');
+            $usuario->nivel = $request->get('nivel');
+            $usuario->informacao = $request->get('informacao');
+            $usuario->save();
 
             // redirect
-            session()->flash('message', 'Contato criado com sucesso!');
-            return Redirect::to('contato');
+            session()->flash('message', 'Usuario criado com sucesso!');
+            return Redirect::to('usuario');
         }
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Contato  $contato
+     * @param  \App\Models\usuario
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        // get the contato
-        $contato = Contato::find($id);
+        // get the usuario
+        $usuario = Usuario::find($id);
 
-        // show the view and pass the contato to it
-        return view('contato.show')->with('contato', $contato);
+        // show the view and pass the usuario to it
+        return view('usuario.show')->with('usuario', $usuario);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Contato  $contato
+     * @param  \App\Models\usuario
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        // get the contato
-        $contato = Contato::find($id);
+        // get the usuario
+        $usuario = Usuario::find($id);
 
-        // show the view and pass the contato to it
-        return view('contato.edit')->with('contato', $contato);
+        // show the view and pass the usuario to it
+        return view('usuario.edit')->with('usuario', $usuario);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Contato  $contato
+     * @param  \App\Models\usuario
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -112,42 +118,48 @@ class ContatoController extends Controller
         $rules = array(
             'nome'       => 'required',
             'email'      => 'required|email',
-            'telefone' => 'required'
+            'senha' => 'required',
+            'cpf' => 'required',
+            'nivel' => 'required',
+            'informacao' => 'required'
         );
         $validator = Validator::make($request->all(), $rules);
 
         // process the login
         if ($validator->fails()) {
-            return Redirect::to('contato/' . $id . '/edit')
+            return Redirect::to('usuario/' . $id . '/edit')
                 ->withErrors($validator)
                 ->withInput($request->except('password'));
         } else {
             // store
-            $contato = contato::find($id);
-            $contato->nome       = $request->get('nome');
-            $contato->email      = $request->get('email');
-            $contato->telefone = $request->get('telefone');
-            $contato->update();
+            $usuario = Usuario::find($id);
+            $usuario->nome       = $request->get('nome');
+            $usuario->email      = $request->get('email');
+            $usuario->senha = $request->get('senha');
+            $usuario->cpf = $request->get('cpf');
+            $usuario->nivel = $request->get('nivel');
+            $usuario->informacao = $request->get('informacao');
+            $usuario->update();
 
             // redirect
-            session()->flash('message', 'Contato editado com sucesso!');
-            return Redirect::to('contato');
+            session()->flash('message', 'Usuario editado com sucesso!');
+            return Redirect::to('usuario');
         }
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Contato  $contato
+     * @param  \App\Models\usuario
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-         // delete
-         $contato = contato::find($id);
-         $contato->delete();
-         // redirect
-         session()->flash('message', 'Contato deletado com sucesso!');
-         return Redirect::to('contato');
+        // delete
+        $usuario = Usuario::find($id);
+        $usuario->delete();
+        // redirect
+        session()->flash('message', 'usuario deletado com sucesso!');
+        return Redirect::to('usuario');
     }
 }

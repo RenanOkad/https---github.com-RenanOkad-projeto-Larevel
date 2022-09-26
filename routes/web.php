@@ -6,6 +6,10 @@ use App\Http\Controllers\PiramideController;
 use App\Http\Controllers\ConeController;
 use App\Http\Controllers\AgendaController;
 use App\Http\Controllers\ContatoController;
+use App\Http\Controllers\UsuarioController;
+use App\Http\Controllers\EstadoController;
+use App\Http\Controllers\ConfigController;
+use App\Http\Controllers\CategoriaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -74,3 +78,11 @@ Route::get('/cone/{altura}/{raio}/{tipoTinta}', [ConeController::class, 'calcula
 Route::resource('/agenda', AgendaController::class);
 
 Route::resource('/contato', ContatoController::class);
+
+Route::resource('/usuario', UsuarioController::class);
+
+Route::resource('/estado', EstadoController::class);
+
+Route::resource('/config', ConfigController::class);
+
+Route::resource('/categoria', CategoriaController::class);
