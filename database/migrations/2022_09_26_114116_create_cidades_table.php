@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 return new class extends Migration
 {
@@ -13,15 +14,17 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('categoria', function (Blueprint $table) {
+        Schema::create('cidades', function (Blueprint $table) {
             $table->unsignedBigInteger('id');
             $table->primary('id');
-            $table->string('nome', 45);
-            $table->string('descricao', 45);
-            $table->string('imagem', 45);
-            $table->string('nome_url', 45);
+            $table->string('descricao',255);
             $table->timestamps();
+            $table->unsignedBigInteger('estado_id');
+            $table->foreign('estado_id')->references('id')->on('estados');
+
         });
+
+        DB::statement("ALTER TABLE `delivery_laravel`.`cidades` CHANGE COLUMN `id` `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT ;");
     }
 
     /**
@@ -31,6 +34,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('categoria');
+        Schema::dropIfExists('cidades');
     }
 };

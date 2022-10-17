@@ -10,6 +10,12 @@ use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\EstadoController;
 use App\Http\Controllers\ConfigController;
 use App\Http\Controllers\CategoriaController;
+use App\Http\Controllers\CidadeController;
+use App\Http\Controllers\EnderecoController;
+use App\Http\Controllers\PedidoController;
+use App\Http\Controllers\CarrinhoController;
+use App\Http\Controllers\ProdutoController;
+use App\Http\Controllers\ProdutosPedidoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -86,3 +92,15 @@ Route::resource('/estado', EstadoController::class);
 Route::resource('/config', ConfigController::class);
 
 Route::resource('/categoria', CategoriaController::class);
+
+Route::resource('/cidade', CidadeController::class);
+
+Route::resource('/endereco', EnderecoController::class);
+
+Route::resource('/pedido', PedidoController::class);
+
+Route::resource('/carrinho', CarrinhoController::class);
+
+Route::resource('/produto', ProdutoController::class);
+
+Route::resource('/produtos_pedido', ProdutosPedidoController::class);

@@ -5,13 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Estado extends Model
+class Endereco extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['nome'];
+    protected $fillable = ['nome','rua','numero','bairro','cidade_id'];
 
     public function cidades(){
-        return $this->hasMany('App\Models\Cidade');
+        return $this->belongsTo('App\Models\Cidade');
     }
 }

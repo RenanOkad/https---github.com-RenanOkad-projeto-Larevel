@@ -5,13 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Estado extends Model
+class Produtos_Pedido extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['nome'];
+    protected $fillable = ['produto_id', 'pedido_id', 'qtd', 'valor'];
 
-    public function cidades(){
-        return $this->hasMany('App\Models\Cidade');
-    }
+    protected $primaryKey = 'produto_id';
 }
