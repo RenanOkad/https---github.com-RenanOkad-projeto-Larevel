@@ -16,6 +16,7 @@ use App\Http\Controllers\PedidoController;
 use App\Http\Controllers\CarrinhoController;
 use App\Http\Controllers\ProdutoController;
 use App\Http\Controllers\ProdutosPedidoController;
+use App\Http\Controllers\AmazonController;
 
 /*
 |--------------------------------------------------------------------------
@@ -104,3 +105,5 @@ Route::resource('/carrinho', CarrinhoController::class);
 Route::resource('/produto', ProdutoController::class);
 
 Route::resource('/produtos_pedido', ProdutosPedidoController::class);
+
+Route::resource('/Amazon', AmazonController::class);
