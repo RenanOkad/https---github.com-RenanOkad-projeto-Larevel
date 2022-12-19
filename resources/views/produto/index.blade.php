@@ -16,10 +16,24 @@
             <ul class="nav navbar-nav">
                 <li><a href="{{ URL::to('produto') }}">Ver produtos</a></li>
                 <li><a href="{{ URL::to('produto/create') }}">Criar uma produto</a>
+                <li><a href="{{ URL::to('dashboard') }}">Voltar</a>
             </ul>
         </nav>
 
         <h1>Todos produtos</h1>
+
+        <form action="{{ route('produto.index') }}" method="get">
+            <div class="row">
+                <div class="col-3">
+                    <input class="form-control" type="text" name="filtro" id="filtro">
+                </div>
+                <div class="col-3">
+                    <button class="btn btn-sucess" type="submit">Pesquisar</button>
+                </div>
+            </div>
+        </form>
+
+        {{$produto -> appends(array('filtro' => $filtro)) -> links()}}
 
         <!-- will be used to show any messages -->
         @if (Session::has('message'))

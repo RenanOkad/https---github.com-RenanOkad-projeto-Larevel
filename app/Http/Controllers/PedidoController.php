@@ -17,9 +17,13 @@ class pedidoController extends Controller
      */
     public function index()
     {
-        $pedido = pedido::all();
 
-        return view('pedido.index')->with('pedido', $pedido);
+        $filtro = request()-> input('filtro');
+        $pedido = pedido::where('nome', 'LIKE', $filtro.'%')
+                        ->orderBy('nome')
+                        ->paginate(4);
+
+        return view('pedido.index')->with('pedido', $pedido)->with('filtro', $filtro);
     }
 
     /**

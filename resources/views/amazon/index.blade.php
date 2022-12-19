@@ -30,7 +30,7 @@
                 <tr>
                     <td>ID</td>
                     <td>Titulo</td>
-                    <td>Preço</td>
+                    <td>Preço</td>  
                     <td>Link</td>
                     <td>Produto Código</td>
                 </tr>

@@ -16,6 +16,7 @@
             <ul class="nav navbar-nav">
                 <li><a href="{{ URL::to('carrinho') }}">Ver carrinhos</a></li>
                 <li><a href="{{ URL::to('carrinho/create') }}">Criar uma carrinho</a>
+                <li><a href="{{ URL::to('dashboard') }}">Voltar</a>
             </ul>
         </nav>
 

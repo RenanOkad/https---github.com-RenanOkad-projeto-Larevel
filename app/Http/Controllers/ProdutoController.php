@@ -17,9 +17,13 @@ class produtoController extends Controller
      */
     public function index()
     {
-        $produto = produto::all();
 
-        return view('produto.index')->with('produto', $produto);
+        $filtro = request()-> input('filtro');
+        $produto = produto::where('nome', 'LIKE', $filtro.'%')
+                        ->orderBy('nome')
+                        ->paginate(4);
+
+        return view('produto.index')->with('produto', $produto)->with('filtro', $filtro);
     }
 
     /**

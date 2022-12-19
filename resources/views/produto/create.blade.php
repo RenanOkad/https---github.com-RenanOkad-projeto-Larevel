@@ -30,7 +30,7 @@
 
         <div class="form-group">
             {{ Form:: label('preco', 'Preço') }}
-            {{ Form:: number('preco', Input::old('preco'), array('class' => 'form-control')) }}
+            {{ Form:: text('preco', Input::old('preco'), array('class' => 'form-control')) }}
         </div>
 
         <div class="form-group">

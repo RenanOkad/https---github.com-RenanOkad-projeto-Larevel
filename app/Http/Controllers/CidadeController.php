@@ -18,9 +18,12 @@ class CidadeController extends Controller
      */
     public function index()
     {
-        $cidade = cidade::all();
+        $filtro = request()-> input('filtro');
+        $cidade = Cidade::where('descricao', 'LIKE', $filtro.'%')
+                        ->orderBy('descricao')
+                        ->paginate(10);
 
-        return view('cidade.index')->with('cidade', $cidade);
+        return view('cidade.index')->with('cidade', $cidade)->with('filtro', $filtro);
     }
 
     /**

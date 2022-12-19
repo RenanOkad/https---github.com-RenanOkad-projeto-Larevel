@@ -17,9 +17,14 @@ class enderecoController extends Controller
      */
     public function index()
     {
-        $endereco = endereco::all();
 
-        return view('endereco.index')->with('endereco', $endereco);
+        $filtro = request()-> input('filtro');
+        $endereco = endereco::where('nome', 'LIKE', $filtro.'%')
+                        ->orderBy('nome')
+                        ->paginate(3);
+
+
+        return view('endereco.index')->with('endereco', $endereco)->with('filtro', $filtro);
     }
 
     /**

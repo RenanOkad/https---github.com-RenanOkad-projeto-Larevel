@@ -17,9 +17,14 @@ class UsuarioController extends Controller
      */
     public function index()
     {
-        $usuario = Usuario::all();
 
-        return view('usuario.index')->with('usuario', $usuario);
+        $filtro = request()-> input('filtro');
+        $usuario = usuario::where('nome', 'LIKE', $filtro.'%')
+                        ->orderBy('nome')
+                        ->paginate(3);
+
+
+         return view('usuario.index')->with('usuario', $usuario)->with('filtro', $filtro);
     }
 
     /**

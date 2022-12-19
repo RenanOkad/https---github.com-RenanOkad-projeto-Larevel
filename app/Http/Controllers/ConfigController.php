@@ -17,9 +17,13 @@ class ConfigController extends Controller
      */
     public function index()
     {
-        $config = config::all();
+       
+        $filtro = request()-> input('filtro');
+        $config = config::where('previsao_tempo', 'LIKE', $filtro.'%')
+                        ->orderBy('previsao_tempo')
+                        ->paginate(4);
 
-        return view('config.index')->with('config', $config);
+        return view('config.index')->with('config', $config)->with('filtro', $filtro);
     }
 
     /**

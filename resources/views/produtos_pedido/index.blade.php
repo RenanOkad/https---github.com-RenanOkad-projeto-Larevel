@@ -16,10 +16,24 @@
             <ul class="nav navbar-nav">
                 <li><a href="{{ URL::to('produtos_pedido') }}">Ver Produtos_Pedidos</a></li>
                 <li><a href="{{ URL::to('produtos_pedido/create') }}">Criar uma Produtos_Pedidos</a>
+                <li><a href="{{ URL::to('dashboard') }}">Voltar</a>
             </ul>
         </nav>
 
         <h1>Todos produtos_pedidos</h1>
+
+        <form action="{{ route('produtos_pedido.index') }}" method="get">
+            <div class="row">
+                <div class="col-3">
+                    <input class="form-control" type="text" name="filtro" id="filtro">
+                </div>
+                <div class="col-3">
+                    <button class="btn btn-sucess" type="submit">Pesquisar</button>
+                </div>
+            </div>
+        </form>
+
+        {{$produtos_pedido -> appends(array('filtro' => $filtro)) -> links()}}
 
         <!-- will be used to show any messages -->
         @if (Session::has('message'))

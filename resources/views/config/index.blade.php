@@ -16,10 +16,24 @@
             <ul class="nav navbar-nav">
                 <li><a href="{{ URL::to('config') }}">Ver configs</a></li>
                 <li><a href="{{ URL::to('config/create') }}">Criar uma config</a>
+                <li><a href="{{ URL::to('dashboard') }}">Voltar</a>
             </ul>
         </nav>
 
         <h1>Todas configs</h1>
+
+        <form action="{{ route('config.index') }}" method="get">
+            <div class="row">
+                <div class="col-3">
+                    <input class="form-control" type="text" name="filtro" id="filtro">
+                </div>
+                <div class="col-3">
+                    <button class="btn btn-sucess" type="submit">Pesquisar</button>
+                </div>
+            </div>
+        </form>
+
+        {{$config -> appends(array('filtro' => $filtro)) -> links()}}
 
         <!-- will be used to show any messages -->
         @if (Session::has('message'))

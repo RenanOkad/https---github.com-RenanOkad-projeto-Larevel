@@ -16,6 +16,7 @@
             <ul class="nav navbar-nav">
                 <li><a href="{{ URL::to('contato') }}">Ver Contatos</a></li>
                 <li><a href="{{ URL::to('contato/create') }}">Criar um contato</a>
+                <li><a href="{{ URL::to('dashboard') }}">Voltar</a>
             </ul>
         </nav>
 

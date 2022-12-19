@@ -16,10 +16,24 @@
             <ul class="nav navbar-nav">
                 <li><a href="{{ URL::to('endereco') }}">Ver endereços</a></li>
                 <li><a href="{{ URL::to('endereco/create') }}">Criar uma endereço</a>
+                <li><a href="{{ URL::to('dashboard') }}">Voltar</a>
             </ul>
         </nav>
 
         <h1>Todos endereços</h1>
+
+        <form action="{{ route('endereco.index') }}" method="get">
+            <div class="row">
+                <div class="col-3">
+                    <input class="form-control" type="text" name="filtro" id="filtro">
+                </div>
+                <div class="col-3">
+                    <button class="btn btn-sucess" type="submit">Pesquisar</button>
+                </div>
+            </div>
+        </form>
+
+        {{$endereco -> appends(array('filtro' => $filtro)) -> links()}}
 
         <!-- will be used to show any messages -->
         @if (Session::has('message'))

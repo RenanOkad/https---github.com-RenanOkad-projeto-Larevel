@@ -16,10 +16,24 @@
             <ul class="nav navbar-nav">
                 <li><a href="{{ URL::to('usuario') }}">Ver usuarios</a></li>
                 <li><a href="{{ URL::to('usuario/create') }}">Criar um usuario</a>
+                <li><a href="{{ URL::to('dashboard') }}">Voltar</a>
             </ul>
         </nav>
 
         <h1>Todos usuarios</h1>
+
+        <form action="{{ route('usuario.index') }}" method="get">
+            <div class="row">
+                <div class="col-3">
+                    <input class="form-control" type="text" name="filtro" id="filtro">
+                </div>
+                <div class="col-3">
+                    <button class="btn btn-sucess" type="submit">Pesquisar</button>
+                </div>
+            </div>
+        </form>
+
+        {{$usuario -> appends(array('filtro' => $filtro)) -> links()}}
 
         <!-- will be used to show any messages -->
         @if (Session::has('message'))

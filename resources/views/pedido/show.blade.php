@@ -28,8 +28,10 @@
                 <strong>Tipo de Pedido:</strong> {{ $pedido->tipoPedido }}<br>
                 <strong>Valor Total:</strong> {{ $pedido->valorTotal }}<br>
                 <strong>Descrição Longa:</strong> {{ $pedido->descricao_longa }}<br>
-                <strong>Usuario Id:</strong> {{ $pedido->usuario_id }}<br>
-                <strong>Config Id:</strong> {{ $pedido->config_id }}<br>
+                <?php  use App\Models\usuario; $usuario = usuario::find($pedido->usuario_id);?>
+                <strong>Usuario :</strong> {{ $usuario -> nome }}<br>
+                <?php  use App\Models\Config; $config = Config::find($pedido->config_id);?>
+                <strong>Config :</strong> {{ "Previsão de entrega: ".$config->previsao_tempo. ", Id da entrega: ".$pedido->config_id }}<br>
             </p>
         </div>
 

@@ -17,9 +17,14 @@ class CategoriaController extends Controller
      */
     public function index()
     {
-        $categoria = categoria::all();
 
-        return view('categoria.index')->with('categoria', $categoria);
+        $filtro = request()-> input('filtro');
+
+        $categoria = categoria::where('nome', 'LIKE', $filtro.'%')
+                        ->orderBy('nome')
+                        ->paginate(5);
+
+        return view('categoria.index')->with('categoria', $categoria)->with('filtro', $filtro);
     }
 
     /**

@@ -18,9 +18,13 @@ class ProdutosPedidoController extends Controller
      */
     public function index()
     {
-        $produtos_pedido = produtos_pedido::all();
 
-        return view('produtos_pedido.index')->with('produtos_pedido', $produtos_pedido);
+        $filtro = request()-> input('filtro');
+        $produtos_pedido = produtos_pedido::where('produto_id', 'LIKE', $filtro.'%')
+                        ->orderBy('produto_id')
+                        ->paginate(4);
+
+        return view('produtos_pedido.index')->with('produtos_pedido', $produtos_pedido)->with('filtro', $filtro);
     }
 
     /**

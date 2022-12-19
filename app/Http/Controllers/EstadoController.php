@@ -17,9 +17,14 @@ class EstadoController extends Controller
      */
     public function index()
     {
-        $estado = Estado::all();
 
-        return view('estado.index')->with('estado', $estado);
+        $filtro = request()-> input('filtro');
+        $estado = estado::where('nome', 'LIKE', $filtro.'%')
+                        ->orderBy('nome')
+                        ->paginate(5);
+
+
+        return view('estado.index')->with('estado', $estado)->with('filtro', $filtro);
     }
 
     /**
